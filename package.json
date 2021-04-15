@@ -28,10 +28,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/shorwood/strapi-provider-upload-do.git"
+    "url": "https://github.com/LYL-Radio/strapi-provider-upload-do.git"
   },
   "bugs": {
-    "url": "https://github.com/shorwood/strapi-provider-upload-do/issues"
+    "url": "https://github.com/LYL-Radio/strapi-provider-upload-do/issues"
   },
   "engines": {
     "node": ">= 10.0.0",
