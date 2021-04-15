@@ -13,10 +13,10 @@ This provider will upload to the space using the AWS S3 API.
 
 ## How to use
 
-1. Install this package
+1. Install via package.json:
 
 ```
-npm i strapi-provider-upload-do
+"strapi-provider-upload-do": "npm:@lyl-radio/strapi-provider-upload-do@3.5.4"
 ```
 
 2. Create config in `./extensions/upload/config/settings.js` with content
