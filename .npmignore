@@ -10,13 +10,11 @@ Icon
 .Trashes
 ._*
 
-
 ############################
 # Linux
 ############################
 
 *~
-
 
 ############################
 # Windows
@@ -30,7 +28,6 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
-
 
 ############################
 # Packages
@@ -60,7 +57,6 @@ $RECYCLE.BIN/
 *.out
 *.pid
 
-
 ############################
 # Logs and databases
 ############################
@@ -70,15 +66,16 @@ $RECYCLE.BIN/
 *.sql
 *.sqlite
 
-
 ############################
 # Misc.
 ############################
 
 *#
+ssl
+.editorconfig
+.gitattributes
 .idea
 nbproject
-
 
 ############################
 # Node.js
@@ -92,5 +89,12 @@ results
 build
 node_modules
 .node_history
-package-lock.json
 
+############################
+# Tests
+############################
+
+test
+tests
+__tests__
+jest.config.js

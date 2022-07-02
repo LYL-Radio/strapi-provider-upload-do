@@ -1,68 +1,99 @@
-# Strapi Upload Provider for Digital Ocean Spaces
-- This provider is a fork of [AdamZikmund's](https://github.com/AdamZikmund) [strapi upload provider](https://github.com/AdamZikmund/strapi-provider-upload-digitalocean) for Digital Ocean spaces.
-
-This provider will upload to the space using the AWS S3 API.
-
-## Parameters
-- **key** : [Space access key](https://cloud.digitalocean.com/account/api/tokens)
-- **secret** : [Space access secret](https://cloud.digitalocean.com/account/api/tokens)
-- **endpoint** : Base URL of the space (e.g. 'fra.digitaloceanspaces.com')
-- **space** : Name of the space in the Digital Ocean panel.
-- **directory** : Name of the sub-directory you want to store your files in. (Optionnal - e.g. '/example')
-- **cdn** : CDN Endpoint - URL of the cdn of the space (Optionnal - e.g. 'https://cdn.example.com')
-
-## How to use
-
-1. Install via package.json:
-
-```
-"strapi-provider-upload-do": "npm:@lyl-radio/strapi-provider-upload-do@3.5.4"
-```
-
-2. Create config in `./extensions/upload/config/settings.js` with content
-
-```
-module.exports = {
-  provider: "do",
-  providerOptions: {
-    key: process.env.DO_SPACE_ACCESS_KEY,
-    secret: process.env.DO_SPACE_SECRET_KEY,
-    endpoint: process.env.DO_SPACE_ENDPOINT,
-    space: process.env.DO_SPACE_BUCKET,
-    directory: process.env.DO_SPACE_DIRECTORY,
-    cdn: process.env.DO_SPACE_CDN,
-  }
-}
-```
-
-3. Create `.env` and add to them 
-
-```
-DO_SPACE_ACCESS_KEY
-DO_SPACE_SECRET_KEY
-DO_SPACE_ENDPOINT
-DO_SPACE_BUCKET
-DO_SPACE_DIRECTORY
-DO_SPACE_CDN
-```
-
-with values obtained from tutorial:
-
-> https://www.digitalocean.com/community/tutorials/how-to-create-a-digitalocean-space-and-api-key
-
-Parameter `DO_SPACE_DIRECTORY` and `DO_SPACE_CDN` is optional and you can ommit them both in `.env` and `settings`.
+# @lyl-radio/strapi-provider-upload-do
 
 ## Resources
 
-- [MIT License](LICENSE.md)
+- [LICENSE](LICENSE)
 
 ## Links
 
-- [Strapi website](http://strapi.io/)
-- [Strapi community on Slack](http://slack.strapi.io)
+- [Strapi website](https://strapi.io/)
+- [Strapi documentation](https://docs.strapi.io)
+- [Strapi community on Discord](https://discord.strapi.io)
 - [Strapi news on Twitter](https://twitter.com/strapijs)
-- [Strapi docs about upload](https://strapi.io/documentation/3.0.0-beta.x/plugins/upload.html#configuration)
 
-## Contributors
-<a href="https://github.com/AdamZikmund"><img src="https://avatars.githubusercontent.com/u/4062779?v=3" title="AdamZikmund" width="80" height="80"></a>
-<a href="https://github.com/gustawdaniel"><img src="https://avatars.githubusercontent.com/u/16663028?v=3" title="gustawdaniel" width="80" height="80"></a>
+## Installation
+
+```bash
+# using yarn
+yarn add @lyl-radio/strapi-provider-upload-do
+
+# using npm
+npm install @lyl-radio/strapi-provider-upload-do --save
+```
+
+## Configuration
+
+- `provider` defines the name of the provider
+- `providerOptions` is passed down during the construction of the provider.
+- `actionOptions` is passed directly to the parameters to each method respectively. DigitalOcean Spaces is compatible with the [Amazon Simple Storage Service (S3)](https://aws.amazon.com/s3/) API. You can find the complete list of [upload/ uploadStream options](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property) and [delete options](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#deleteObject-property)
+
+See the [documentation about using a provider](https://docs.strapi.io/developer-docs/latest/plugins/upload.html#using-a-provider) for information on installing and using a provider. To understand how environment variables are used in Strapi, please refer to the [documentation about environment variables](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/optional/environment.html#environment-variables).
+
+### Provider Configuration
+
+`./config/plugins.js`
+
+```js
+module.exports = ({ env }) => ({
+  // ...
+  upload: {
+    config: {
+      provider: 'do',
+      providerOptions: {
+        key: env('DO_SPACE_ACCESS_KEY'),
+        secret: env('DO_SPACE_SECRET_KEY'),
+        endpoint: env('DO_SPACE_ENDPOINT'),
+        space: env('DO_SPACE_BUCKET'),
+        directory: env('DO_SPACE_DIRECTORY'),
+        cdn: env('DO_SPACE_CDN'),
+      },
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {},
+      },
+    },
+  },
+  // ...
+});
+```
+
+### Security Middleware Configuration
+
+Due to the default settings in the Strapi Security Middleware you will need to modify the `contentSecurityPolicy` settings to properly see thumbnail previews in the Media Library. You should replace `strapi::security` string with the object bellow instead as explained in the [middleware configuration](https://docs.strapi.io/developer-docs/latest/setup-deployment-guides/configurations/required/middlewares.html#loading-order) documentation.
+
+`./config/middlewares.js`
+
+```js
+module.exports = [
+  // ...
+  {
+    name: 'strapi::security',
+    config: {
+      contentSecurityPolicy: {
+        useDefaults: true,
+        directives: {
+          'connect-src': ["'self'", 'https:'],
+          'img-src': [
+            "'self'",
+            'data:',
+            'blob:',
+            'yourBucketName.yourRegion.digitaloceanspaces.com',
+            'yourBucketName.yourRegion.cdn.digitaloceanspaces.com',
+          ],
+          'media-src': [
+            "'self'",
+            'data:',
+            'blob:',
+            'yourBucketName.yourRegion.digitaloceanspaces.com',
+            'yourBucketName.yourRegion.cdn.digitaloceanspaces.com',
+          ],
+          upgradeInsecureRequests: null,
+        },
+      },
+    },
+  },
+  // ...
+];
+```
+You can also add your custom CDN subdomain to img-src and media-src directives.

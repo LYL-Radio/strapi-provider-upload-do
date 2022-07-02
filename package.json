@@ -1,41 +1,47 @@
 {
   "name": "@lyl-radio/strapi-provider-upload-do",
-  "version": "3.5.4",
-  "description": "Digital ocean spaces provider for Strapi upload plugin",
-  "homepage": "http://strapi.io",
+  "version": "4.0.0",
+  "description": "DigitalOcean Spaces provider for Strapi upload",
   "keywords": [
     "upload",
     "digitalocean",
     "spaces",
-    "strapi",
-    "provider"
+    "strapi"
   ],
-  "directories": {
-    "lib": "./lib"
-  },
-  "main": "./lib",
-  "dependencies": {
-    "aws-sdk": "2.388.0",
-    "urijs": "^1.19.6"
-  },
-  "strapi": {
-    "isProvider": true
-  },
-  "author": {
-    "email": "adam@qusion.com",
-    "name": "Qusion s.r.o.",
-    "url": "https://qusion.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/LYL-Radio/strapi-provider-upload-do.git"
-  },
+  "homepage": "https://strapi.io",
   "bugs": {
     "url": "https://github.com/LYL-Radio/strapi-provider-upload-do/issues"
   },
-  "engines": {
-    "node": ">= 10.0.0",
-    "npm": ">= 6.0.0"
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/LYL-Radio/strapi-provider-upload-do.git"
   },
-  "license": "MIT"
+  "license": "SEE LICENSE IN LICENSE",
+  "author": {
+    "name": "LYL Radio",
+    "email": "developers@lyl.live",
+    "url": "https://lyl.live"
+  },
+  "maintainers": [
+    {
+      "name": "LYL Radio",
+      "email": "developers@lyl.live",
+      "url": "https://lyl.live"
+    }
+  ],
+  "main": "./lib",
+  "directories": {
+    "lib": "./lib"
+  },
+  "scripts": {
+    "test": "echo \"no tests yet\""
+  },
+  "dependencies": {
+    "aws-sdk": "2.892.0",
+    "urijs": "^1.19.11"
+  },
+  "engines": {
+    "node": ">=14.19.1 <=16.x.x",
+    "npm": ">=6.0.0"
+  }
 }
