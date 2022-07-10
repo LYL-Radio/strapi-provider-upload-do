@@ -13,11 +13,12 @@
 
 ## Installation
 
+### using yarn
 ```bash
-# using yarn
 yarn add @lyl-radio/strapi-provider-upload-do
-
-# using npm
+```
+### using npm
+```bash
 npm install @lyl-radio/strapi-provider-upload-do --save
 ```
 
@@ -38,7 +39,7 @@ module.exports = ({ env }) => ({
   // ...
   upload: {
     config: {
-      provider: 'do',
+      provider: '@lyl-radio/strapi-provider-upload-do',
       providerOptions: {
         key: env('DO_SPACE_ACCESS_KEY'),
         secret: env('DO_SPACE_SECRET_KEY'),
