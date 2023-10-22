@@ -37,11 +37,11 @@
     "test": "echo \"no tests yet\""
   },
   "dependencies": {
-    "aws-sdk": "2.892.0",
+    "aws-sdk": "^2.1478.0",
     "urijs": "^1.19.11"
   },
   "engines": {
-    "node": ">=14.19.1 <=18.x.x",
+    "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   }
 }
