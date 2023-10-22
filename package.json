@@ -1,6 +1,6 @@
 {
   "name": "@lyl-radio/strapi-provider-upload-do",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "DigitalOcean Spaces provider for Strapi upload",
   "keywords": [
     "upload",
